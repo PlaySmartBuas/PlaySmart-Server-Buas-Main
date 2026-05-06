@@ -42,9 +42,9 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: ${{ github.event.inputs.service }}
+          context: ${{ steps.ctx.outputs.path }}
           push: true
-          tags: playsmartbuas/${{ github.event.inputs.service }}:latest
+          tags: playsmartbuas/bg-app-${{ matrix.service }}:latest
 
   # deploy:
   #   runs-on: self-hosted
