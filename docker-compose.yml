@@ -1,0 +1,74 @@
+services:
+  backend:
+    image: 220755842/bg-app-backend
+    container_name: app-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/bget.db:/app/bget.db
+      - ./backend/logs:/app/logs
+      - /mnt/raid0/esports:/mnt/raid0/esports
+    environment:
+      - SECRET_KEY=ab0fcea65b768d7f7c958313ed0dd95f8c579d251266183e091069d16702a7d0
+      - ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_HOURS=24
+      - DATABASE_URL=sqlite:///./bget.db
+      - RIOT_API_KEY=RGAPI-f55d88f8-dd75-4a03-b054-e8b29e5fb6b5
+      - HENRIK_API_KEY=HDEV-a23aa305-d8c8-4780-ac89-49935b660e26
+      - CORS_ORIGINS=*
+      - ENVIRONMENT=production
+    restart: unless-stopped
+
+  frontend:
+    image: 220755842/bg-app-frontend
+    container_name: app-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  pipeline:
+    image: 220755842/bg-app-pipeline
+    container_name: app-pipeline
+    volumes:
+      - /mnt/raid0/esports:/mnt/raid0/esports
+    environment:
+      - TZ=Europe/Amsterdam
+    restart: "no"
+
+  inference:
+    image: 220755842/bg-app-inference
+    container_name: app-inference
+    ports:
+      - "8001:8001"
+    volumes:
+      - /mnt/raid0/esports:/mnt/raid0/esports
+    environment:
+      - TZ=Europe/Amsterdam
+      - GPU_PC_URL=http://10.4.28.236:8000
+      - WATCH_FOLDER=/mnt/raid0/esports/sftp_data/merged
+      - VIDEO_FOLDER=/mnt/raid0/esports/sftp_data/video
+      - RESULTS_FOLDER=/mnt/raid0/esports/sftp_data/results
+    restart: unless-stopped
+
+  sftp:
+    image: atmoz/sftp
+    container_name: app-sftp-container
+    ports:
+      - "2422:22"
+    volumes:
+      - /mnt/raid0/esports/sftp_data:/home/localhost/data
+    environment:
+      - SFTP_USERS=localhost:yourpassword:1234
+    restart: unless-stopped
+    command: >
+      /bin/sh -c "mkdir -p /home/localhost/data/emotion &&
+      mkdir -p /home/localhost/data/video &&
+      mkdir -p /home/localhost/data/input &&
+      mkdir -p /home/localhost/data/merged &&
+      mkdir -p /home/localhost/data/gaze &&
+      mkdir -p /home/localhost/data/eda &&
+      chown -R 1234:100 /home/localhost/data &&
+      chmod -R 755 /home/localhost/data &&
+      /usr/sbin/sshd -D"
