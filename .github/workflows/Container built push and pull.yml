@@ -1,0 +1,54 @@
+name: Build, push and deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      service:
+        description: 'Service to build and deploy'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - bg-app-frontend
+          - bg-app-backend
+          - bg-app-pipeline
+          - bg-app-inference
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: ./${{ github.event.inputs.service }}
+          push: true
+          tags: 220755842/${{ github.event.inputs.service }}:latest
+
+  # deploy:
+  #   runs-on: self-hosted
+  #   needs: build-and-push        # only runs if build-and-push succeeds
+  #   steps:
+  #     - name: Pull and restart
+  #       run: |
+  #         cd /path/to/compose
+
+  #         if [ "${{ github.event.inputs.service }}" = "all" ]; then
+  #           docker compose pull
+  #           docker compose up -d
+  #         else
+  #           docker compose pull ${{ github.event.inputs.service }}
+  #           docker compose up -d ${{ github.event.inputs.service }}
+  #         fi
+
+  #         docker compose ps
