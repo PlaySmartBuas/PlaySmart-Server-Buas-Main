@@ -10,10 +10,10 @@ on:
         type: choice
         options:
           - all
-          - bg-app-frontend
-          - bg-app-backend
-          - bg-app-pipeline
-          - bg-app-inference
+          - electron-app
+          - backend
+          - pipeline
+          - inference
 
 jobs:
   build-and-push:
@@ -31,7 +31,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: ./${{ github.event.inputs.service }}
+          context: ${{ github.event.inputs.service }}
           push: true
           tags: playsmartbuas/${{ github.event.inputs.service }}:latest
 
