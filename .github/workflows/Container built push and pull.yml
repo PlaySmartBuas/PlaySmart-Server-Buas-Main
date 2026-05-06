@@ -33,7 +33,7 @@ jobs:
         with:
           context: ./${{ github.event.inputs.service }}
           push: true
-          tags: 220755842/${{ github.event.inputs.service }}:latest
+          tags: playsmartbuas/${{ github.event.inputs.service }}:latest
 
   # deploy:
   #   runs-on: self-hosted
