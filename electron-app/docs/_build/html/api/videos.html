@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Videos API &#8212; Breda Guardians Esports Tool 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API Reference (generated)" href="../api_reference.html" />
+    <link rel="prev" title="Toolkit API" href="toolkit.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="videos-api">
+<h1>Videos API<a class="headerlink" href="#videos-api" title="Permalink to this heading">¶</a></h1>
+<section id="endpoints">
+<h2>Endpoints<a class="headerlink" href="#endpoints" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/api/videos/{filename}</span></code> — Serve video files with support for HTTP Range requests for efficient seeking.
+- Filename may be provided as CSV-style (<code class="docutils literal notranslate"><span class="pre">..._merged.csv</span></code>) or direct <code class="docutils literal notranslate"><span class="pre">.mp4</span></code>; the router normalizes to an MP4 name.
+- Query param <code class="docutils literal notranslate"><span class="pre">data_directory</span></code> allows overriding the base video directory (used by the frontend to point to local developer data folders).</p></li>
+</ul>
+</section>
+<section id="behavior-and-errors">
+<h2>Behavior and errors<a class="headerlink" href="#behavior-and-errors" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Returns full <code class="docutils literal notranslate"><span class="pre">FileResponse</span></code> when no Range header is present.</p></li>
+<li><p>Returns partial <code class="docutils literal notranslate"><span class="pre">StreamingResponse</span></code> with status 206 for Range requests.</p></li>
+<li><p>Errors: 404 if video directory or file not found; 416 for invalid range.</p></li>
+</ul>
+</section>
+<section id="example-curl">
+<h2>Example (curl)<a class="headerlink" href="#example-curl" title="Permalink to this heading">¶</a></h2>
+<p>Full fetch:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-v<span class="w"> </span>http://localhost:8000/api/videos/1st_game_P037_league<span class="se">\ </span>of<span class="se">\ </span>legends_03-11-2025_14-49-24.mp4<span class="w"> </span>-o<span class="w"> </span>out.mp4
+</pre></div>
+</div>
+<p>Range request (first 1MB):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-v<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Range: bytes=0-1048575&quot;</span><span class="w"> </span>http://localhost:8000/api/videos/yourfile.mp4<span class="w"> </span>-o<span class="w"> </span>part.mp4
+</pre></div>
+</div>
+</section>
+<section id="module-source">
+<h2>Module source<a class="headerlink" href="#module-source" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Breda Guardians Esports Tool</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../project_structure.html">Project structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../project_structure.html#key-files">Key files</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api_overview.html">API overview</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api_overview.html#available-routers">Available routers</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api_overview.html#other-routers">Other routers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference (generated)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing_add_router.html">Adding a new API router</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../api_overview.html">API overview</a><ul>
+      <li>Previous: <a href="toolkit.html" title="previous chapter">Toolkit API</a></li>
+      <li>Next: <a href="../api_reference.html" title="next chapter">API Reference (generated)</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2026, Endijs Kirsteins, Rachit Ravelia, Raf Sikkema, Kamil Lega, Kees Klijs, Louie Dans, Jack Wade, Tiago Alberto Silva.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="../_sources/api/videos.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

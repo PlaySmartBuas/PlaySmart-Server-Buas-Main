@@ -1,0 +1,6 @@
+sphinx>=7.0
+# Optional: if you prefer the ReadTheDocs theme
+# sphinx-rtd-theme>=1.0
+# If you want to build with real autodoc types (requires installing backend deps):
+# - install backend dependencies (e.g., pip install -e ../../backend) or
+# - install specific packages like fastapi, pydantic, sqlalchemy

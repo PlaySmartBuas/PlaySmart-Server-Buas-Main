@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Project structure &#8212; Breda Guardians Esports Tool 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API overview" href="api_overview.html" />
+    <link rel="prev" title="Breda Guardians Esports Tool documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="project-structure">
+<h1>Project structure<a class="headerlink" href="#project-structure" title="Permalink to this heading">¶</a></h1>
+<p>This page describes the main folders, files and responsibilities in the
+Play-O-Meter repository (focused on the code shipped in this workspace).</p>
+<section id="top-level-layout">
+<h2>Top-level layout<a class="headerlink" href="#top-level-layout" title="Permalink to this heading">¶</a></h2>
+<p>The repository is organised into a few focused top-level folders. The
+short list below is expanded in the sections that follow.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">backend/</span></code> — the FastAPI backend service (Python)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">electron-app/</span></code> — the frontend (Electron + Vite + React + TypeScript)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">README.md</span></code> — high-level project overview and developer instructions</p></li>
+</ul>
+</section>
+<section id="backend">
+<h2>backend/<a class="headerlink" href="#backend" title="Permalink to this heading">¶</a></h2>
+<p>This folder contains the Python backend. Important items include:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">app/</span></code> - backend package: routers (<code class="docutils literal notranslate"><span class="pre">router/</span></code>), models (<code class="docutils literal notranslate"><span class="pre">models/</span></code>), CRUD helpers (<code class="docutils literal notranslate"><span class="pre">crud/</span></code>) and services (<code class="docutils literal notranslate"><span class="pre">services/</span></code>).</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>project-level items
+- <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> — backend Python metadata and dependencies
+- migration scripts such as <code class="docutils literal notranslate"><span class="pre">migrate_feedback.py</span></code> and <code class="docutils literal notranslate"><span class="pre">migrate_match_id.py</span></code></p></li>
+</ul>
+</section>
+<section id="electron-app">
+<h2>electron-app/<a class="headerlink" href="#electron-app" title="Permalink to this heading">¶</a></h2>
+<p>Frontend application and Electron packaging. Key parts:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">package.json</span></code> — Node dependencies and npm scripts</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">src/</span></code> — React application source code (contains <code class="docutils literal notranslate"><span class="pre">pages/</span></code>, <code class="docutils literal notranslate"><span class="pre">components/</span></code> and <code class="docutils literal notranslate"><span class="pre">services/</span></code>).</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">electron/</span></code> — Electron main and preload scripts (<code class="docutils literal notranslate"><span class="pre">main.cjs</span></code>, <code class="docutils literal notranslate"><span class="pre">preload.cjs</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public/</span></code> — static assets (example videos, icons)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docs/</span></code> — Sphinx documentation for the frontend and repository (this folder)</p></li>
+</ul>
+</section>
+</section>
+<section id="key-files">
+<h1>Key files<a class="headerlink" href="#key-files" title="Permalink to this heading">¶</a></h1>
+<ul class="simple">
+<li><p>Starts the FastAPI app and registers routers. If you need to add or
+change API prefixes, this is the canonical place to look.</p></li>
+<li><p>Contains the reaction-inference endpoints. Note that the router is
+mounted in <code class="docutils literal notranslate"><span class="pre">main.py</span></code> with a prefix; the exact prefix string determines
+the public API path (e.g. <code class="docutils literal notranslate"><span class="pre">/api/reaction-time</span></code> vs <code class="docutils literal notranslate"><span class="pre">/api/reaction_time</span></code>).</p></li>
+<li><p>Player-side review page that calls the backend reaction-time API when
+running inference. If you get 404s from the frontend, verify the exact
+request URL matches the backend router prefix here.</p></li>
+</ul>
+<section id="how-to-run-developer-hints">
+<h2>How to run (developer hints)<a class="headerlink" href="#how-to-run-developer-hints" title="Permalink to this heading">¶</a></h2>
+<section id="backend-typical">
+<h3>Backend (typical)<a class="headerlink" href="#backend-typical" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic">
+<li><p>Create and activate a Python virtual environment in <code class="docutils literal notranslate"><span class="pre">backend/</span></code>.</p>
+<p>Example (Windows PowerShell):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">venv</span> <span class="o">.</span><span class="n">venv</span>
+<span class="o">.</span>\<span class="o">.</span><span class="n">venv</span>\<span class="n">Scripts</span>\<span class="n">Activate</span><span class="o">.</span><span class="n">ps1</span>
+</pre></div>
+</div>
+</li>
+<li><p>Install dependencies (project uses <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> / Poetry in this
+repository; or <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code> if present).</p></li>
+<li><p>Run the server with Uvicorn from the <code class="docutils literal notranslate"><span class="pre">backend</span></code> folder:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">uvicorn</span> <span class="n">app</span><span class="o">.</span><span class="n">main</span><span class="p">:</span><span class="n">app</span> <span class="o">--</span><span class="n">reload</span> <span class="o">--</span><span class="n">port</span> <span class="mi">8000</span>
+</pre></div>
+</div>
+</li>
+<li><p>Visit the interactive API docs while developing:</p>
+<p><a class="reference external" href="http://localhost:8000/docs">http://localhost:8000/docs</a></p>
+</li>
+</ol>
+</section>
+<section id="frontend-electron-vite">
+<h3>Frontend (Electron + Vite)<a class="headerlink" href="#frontend-electron-vite" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic">
+<li><p>From <code class="docutils literal notranslate"><span class="pre">electron-app/</span></code> install packages:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">npm</span> <span class="n">install</span>
+</pre></div>
+</div>
+</li>
+<li><p>Start the renderer app (Vite) during development (typical script name is
+<code class="docutils literal notranslate"><span class="pre">dev</span></code> or <code class="docutils literal notranslate"><span class="pre">start</span></code>; check <code class="docutils literal notranslate"><span class="pre">package.json</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">npm</span> <span class="n">run</span> <span class="n">dev</span>
+</pre></div>
+</div>
+</li>
+<li><p>Build and run the Electron app using the project’s npm scripts when
+needed.</p></li>
+</ol>
+</section>
+</section>
+<section id="notes-and-tips">
+<h2>Notes and tips<a class="headerlink" href="#notes-and-tips" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>API path correctness: Be precise with router prefixes. The backend may be
+mounted with hyphenated paths (<code class="docutils literal notranslate"><span class="pre">reaction-time</span></code>). If your frontend uses
+underscores (<code class="docutils literal notranslate"><span class="pre">reaction_time</span></code>) you will get a 404; check <code class="docutils literal notranslate"><span class="pre">main.py</span></code> and
+the route files for the exact prefix used.</p></li>
+<li><p>Documentation: This Sphinx site is purposely kept lightweight. Add more
+pages under this <code class="docutils literal notranslate"><span class="pre">docs/</span></code> folder and register them in <code class="docutils literal notranslate"><span class="pre">index.rst</span></code>’s
+toctree so they appear in the site navigation.</p></li>
+<li><p>Contributing: When adding new backend routers, include docstrings and
+small API examples in the router module so they can be copied into the
+docs for quick reference.</p></li>
+</ul>
+</section>
+<section id="appendix-compact-tree">
+<h2>Appendix — compact tree<a class="headerlink" href="#appendix-compact-tree" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Play-O-Meter-2025-26/
+├─ ...
+└─ elctron_application/
+  ├─ README.md
+  ├─ backend/
+  │  ├─ pyproject.toml
+  │  ├─ migrate_feedback.py
+  │  │  ...
+  │  └─ app/
+  │     ├─ main.py
+  │     ├─ database.py
+  │     ├─ router/
+  │     ├─ models/
+  │     └─ services/
+  └─ electron-app/
+    ├─ package.json
+    ├─ src/
+    ├─ public/
+    ├─ electron/
+    └─ docs/
+      ├─ conf.py
+      └─ index.rst
+</pre></div>
+</div>
+<p>If you’d like, I can:</p>
+<ul class="simple">
+<li><p>Add more per-file API docs for the backend routes (automatically generated
+references or hand-written short summaries).</p></li>
+<li><p>Create a small contribution guide page showing how to add a new API router
+and update the frontend.</p></li>
+</ul>
+<p>Pick what you’d like next and I will expand the docs accordingly.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Breda Guardians Esports Tool</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Project structure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#top-level-layout">Top-level layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#backend">backend/</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#electron-app">electron-app/</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#key-files">Key files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-run-developer-hints">How to run (developer hints)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#notes-and-tips">Notes and tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#appendix-compact-tree">Appendix — compact tree</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_overview.html">API overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference (generated)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing_add_router.html">Adding a new API router</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Breda Guardians Esports Tool documentation</a></li>
+      <li>Next: <a href="api_overview.html" title="next chapter">API overview</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2026, Endijs Kirsteins, Rachit Ravelia, Raf Sikkema, Kamil Lega, Kees Klijs, Louie Dans, Jack Wade, Tiago Alberto Silva.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/project_structure.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

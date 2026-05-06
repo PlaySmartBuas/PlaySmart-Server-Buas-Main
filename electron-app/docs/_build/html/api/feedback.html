@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Feedback API &#8212; Breda Guardians Esports Tool 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Valorant API" href="valorant.html" />
+    <link rel="prev" title="Reaction time API" href="reaction_time.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="feedback-api">
+<h1>Feedback API<a class="headerlink" href="#feedback-api" title="Permalink to this heading">¶</a></h1>
+<p>Mounted: see backend router registration (commonly under <code class="docutils literal notranslate"><span class="pre">/api</span></code>)</p>
+<section id="endpoints">
+<h2>Endpoints<a class="headerlink" href="#endpoints" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">POST</span> <span class="pre">/api/feedback</span></code> — Create a coach feedback entry.
+- Request body: FeedbackCreate model (see backend model in <code class="docutils literal notranslate"><span class="pre">backend/app/models/feedback.py</span></code>)
+- Response: created Feedback object (HTTP 201)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/api/feedback/{riot_id}/{game}</span></code> — Fetch feedback for a player and game. Optional query param <code class="docutils literal notranslate"><span class="pre">match_id</span></code> filters by match.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DELETE</span> <span class="pre">/api/feedback/{feedback_id}</span></code> — Remove a feedback item by id.</p></li>
+</ul>
+</section>
+<section id="details">
+<h2>Details<a class="headerlink" href="#details" title="Permalink to this heading">¶</a></h2>
+<p>The feedback endpoints are implemented in <code class="docutils literal notranslate"><span class="pre">backend/app/router/feedback.py</span></code> and use SQLAlchemy sessions injected via dependency. Validation errors and database errors will be returned as appropriate HTTP status codes.</p>
+</section>
+<section id="example-json-request">
+<h2>Example JSON request<a class="headerlink" href="#example-json-request" title="Permalink to this heading">¶</a></h2>
+<p>(create feedback)</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;riot_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Player123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;coach_username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;coach_anna&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;match_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;match_2025_03_11&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">125.4</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Aim&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;error_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AIM01&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;feedback_text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Adjust crosshair placement when holding long angles.&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;game&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;valorant&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="axios-example-create-feedback">
+<h2>Axios example (create feedback)<a class="headerlink" href="#axios-example-create-feedback" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="nx">axios</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;axios&#39;</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">riot_id</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Player123&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">coach_username</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;coach_anna&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">match_id</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;match_2025_03_11&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">timestamp</span><span class="o">:</span><span class="w"> </span><span class="mf">125.4</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">feedback_text</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Adjust crosshair placement when holding long angles.&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">game</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;valorant&#39;</span>
+<span class="p">};</span>
+
+<span class="nx">axios</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;http://localhost:8000/api/feedback&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">payload</span><span class="p">)</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">resp</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;created&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">data</span><span class="p">))</span>
+<span class="w">  </span><span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">response</span><span class="o">?</span><span class="p">.</span><span class="nx">data</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">));</span>
+</pre></div>
+</div>
+</section>
+<section id="curl-example-create-feedback">
+<h2>Curl example (create feedback)<a class="headerlink" href="#curl-example-create-feedback" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8000/api/feedback<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;riot_id&quot;:&quot;Player123&quot;,&quot;coach_username&quot;:&quot;coach_anna&quot;,&quot;timestamp&quot;:125.4,&quot;feedback_text&quot;:&quot;Adjust crosshair placement&quot;,&quot;game&quot;:&quot;valorant&quot;}&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="module-source">
+<h2>Module source<a class="headerlink" href="#module-source" title="Permalink to this heading">¶</a></h2>
+<p>FastAPI routes for managing player feedback.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Breda Guardians Esports Tool</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../project_structure.html">Project structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../project_structure.html#key-files">Key files</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api_overview.html">API overview</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api_overview.html#available-routers">Available routers</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api_overview.html#other-routers">Other routers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference (generated)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing_add_router.html">Adding a new API router</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../api_overview.html">API overview</a><ul>
+      <li>Previous: <a href="reaction_time.html" title="previous chapter">Reaction time API</a></li>
+      <li>Next: <a href="valorant.html" title="next chapter">Valorant API</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2026, Endijs Kirsteins, Rachit Ravelia, Raf Sikkema, Kamil Lega, Kees Klijs, Louie Dans, Jack Wade, Tiago Alberto Silva.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="../_sources/api/feedback.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

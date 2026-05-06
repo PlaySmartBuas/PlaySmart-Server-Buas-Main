@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>API Reference (generated) &#8212; Breda Guardians Esports Tool 0.0.1 documentation</title>
+  <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+  <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+  <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+  <script src="_static/doctools.js"></script>
+  <script src="_static/sphinx_highlight.js"></script>
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="Adding a new API router" href="contributing_add_router.html" />
+  <link rel="prev" title="Videos API" href="api/videos.html" />
+
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+</head>
+
+<body>
+
+
+  <div class="document">
+    <div class="documentwrapper">
+      <div class="bodywrapper">
+
+
+        <div class="body" role="main">
+
+          <section id="api-reference-generated">
+            <h1>API Reference (generated)<a class="headerlink" href="#api-reference-generated"
+                title="Permalink to this heading">¶</a></h1>
+            <p>This page provides a compact reference of all API endpoints discovered in
+              <code class="docutils literal notranslate"><span class="pre">backend/app/router/</span></code> and the
+              prefixes used when routers are mounted in
+              <code class="docutils literal notranslate"><span class="pre">backend/app/main.py</span></code>.
+            </p>
+            <p>Note: This is a machine-assisted summary created from the router modules.</p>
+            <section id="auth">
+              <h2>Auth<a class="headerlink" href="#auth" title="Permalink to this heading">¶</a></h2>
+              <ul class="simple">
+                <li>
+                  <p>POST /api/auth/signup</p>
+                </li>
+                <li>
+                  <p>POST /api/auth/login</p>
+                </li>
+              </ul>
+            </section>
+            <section id="feedback">
+              <h2>Feedback<a class="headerlink" href="#feedback" title="Permalink to this heading">¶</a></h2>
+              <ul class="simple">
+                <li>
+                  <p>POST /api/feedback</p>
+                </li>
+                <li>
+                  <p>GET /api/feedback/{riot_id}/{game}</p>
+                </li>
+                <li>
+                  <p>DELETE /api/feedback/{feedback_id}</p>
+                </li>
+              </ul>
+            </section>
+            <section id="reaction-time">
+              <h2>Reaction time<a class="headerlink" href="#reaction-time" title="Permalink to this heading">¶</a></h2>
+              <ul class="simple">
+                <li>
+                  <p>POST /api/reaction-time/run</p>
+                </li>
+              </ul>
+            </section>
+            <section id="valorant">
+              <h2>Valorant<a class="headerlink" href="#valorant" title="Permalink to this heading">¶</a></h2>
+              <ul class="simple">
+                <li>
+                  <p>GET /api/valorant/account/{riot_id}</p>
+                </li>
+                <li>
+                  <p>GET /api/valorant/account/{name}/{tag}</p>
+                </li>
+                <li>
+                  <p>GET /api/valorant/matches/{region}/{name}/{tag}</p>
+                </li>
+                <li>
+                  <p>GET /api/valorant/matches/{riot_id}</p>
+                </li>
+              </ul>
+            </section>
+            <section id="riot">
+              <h2>Riot<a class="headerlink" href="#riot" title="Permalink to this heading">¶</a></h2>
+              <ul class="simple">
+                <li>
+                  <p>GET /riot/account/{region}/{game_name}/{tag_line}</p>
+                </li>
+                <li>
+                  <p>GET /riot/summoner/{platform}/{puuid}</p>
+                </li>
+                <li>
+                  <p>GET /riot/ranked-by-puuid/{platform}/{puuid}</p>
+                </li>
+                <li>
+                  <p>GET /riot/matches/{region}/{puuid}</p>
+                </li>
+                <li>
+                  <p>GET /riot/match/{region}/{match_id}</p>
+                </li>
+                <li>
+                  <p>GET /riot/mastery/{platform}/{puuid}</p>
+                </li>
+              </ul>
+            </section>
+            <section id="match-data">
+              <h2>Match Data<a class="headerlink" href="#match-data" title="Permalink to this heading">¶</a></h2>
+              <ul class="simple">
+                <li>
+                  <p>GET /api/list-matches</p>
+                </li>
+                <li>
+                  <p>GET /api/match-details/{filename}</p>
+                </li>
+                <li>
+                  <p>GET /api/csv-summary</p>
+                </li>
+                <li>
+                  <p>GET /api/read-csv</p>
+                </li>
+              </ul>
+            </section>
+            <section id="toolkit">
+              <h2>Toolkit<a class="headerlink" href="#toolkit" title="Permalink to this heading">¶</a></h2>
+              <ul class="simple">
+                <li>
+                  <p>GET /api/toolkit/select-file</p>
+                </li>
+                <li>
+                  <p>GET /api/toolkit/select-obs</p>
+                </li>
+                <li>
+                  <p>GET /api/toolkit/select-tobii</p>
+                </li>
+                <li>
+                  <p>POST /api/toolkit/start-obs</p>
+                </li>
+                <li>
+                  <p>POST /api/toolkit/start-tobii</p>
+                </li>
+                <li>
+                  <p>POST /api/toolkit/start-toolkit</p>
+                </li>
+                <li>
+                  <p>POST /api/toolkit/stop-toolkit</p>
+                </li>
+                <li>
+                  <p>GET /api/toolkit/toolkit-status</p>
+                </li>
+                <li>
+                  <p>POST /api/toolkit/reset-toolkit</p>
+                </li>
+                <li>
+                  <p>GET/POST /api/toolkit/config</p>
+                </li>
+              </ul>
+            </section>
+            <section id="biometrics">
+              <h2>Biometrics<a class="headerlink" href="#biometrics" title="Permalink to this heading">¶</a></h2>
+              <ul class="simple">
+                <li>
+                  <p>GET /api/biometrics/match/{filename}</p>
+                </li>
+                <li>
+                  <p>GET /api/biometrics/test</p>
+                </li>
+              </ul>
+            </section>
+            <section id="videos">
+              <h2>Videos<a class="headerlink" href="#videos" title="Permalink to this heading">¶</a></h2>
+              <ul class="simple">
+                <li>
+                  <p>GET /api/videos/{filename}</p>
+                </li>
+              </ul>
+            </section>
+            <section id="coach">
+              <h2>Coach<a class="headerlink" href="#coach" title="Permalink to this heading">¶</a></h2>
+              <ul class="simple">
+                <li>
+                  <p>GET /api/coach/select-data-directory</p>
+                </li>
+                <li>
+                  <p>GET /api/coach/config</p>
+                </li>
+                <li>
+                  <p>POST /api/coach/config</p>
+                </li>
+                <li>
+                  <p>DELETE /api/coach/config</p>
+                </li>
+              </ul>
+            </section>
+          </section>
+
+
+        </div>
+
+      </div>
+    </div>
+    <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebarwrapper">
+        <h1 class="logo"><a href="index.html">Breda Guardians Esports Tool</a></h1>
+
+
+
+
+
+
+
+
+        <h3>Navigation</h3>
+        <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+        <ul class="current">
+          <li class="toctree-l1"><a class="reference internal" href="project_structure.html">Project structure</a></li>
+          <li class="toctree-l1"><a class="reference internal" href="project_structure.html#key-files">Key files</a>
+          </li>
+          <li class="toctree-l1"><a class="reference internal" href="api_overview.html">API overview</a></li>
+          <li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference (generated)</a>
+            <ul>
+              <li class="toctree-l2"><a class="reference internal" href="#auth">Auth</a></li>
+              <li class="toctree-l2"><a class="reference internal" href="#feedback">Feedback</a></li>
+              <li class="toctree-l2"><a class="reference internal" href="#reaction-time">Reaction time</a></li>
+              <li class="toctree-l2"><a class="reference internal" href="#valorant">Valorant</a></li>
+              <li class="toctree-l2"><a class="reference internal" href="#riot">Riot</a></li>
+              <li class="toctree-l2"><a class="reference internal" href="#match-data">Match Data</a></li>
+              <li class="toctree-l2"><a class="reference internal" href="#toolkit">Toolkit</a></li>
+              <li class="toctree-l2"><a class="reference internal" href="#biometrics">Biometrics</a></li>
+              <li class="toctree-l2"><a class="reference internal" href="#videos">Videos</a></li>
+              <li class="toctree-l2"><a class="reference internal" href="#coach">Coach</a></li>
+            </ul>
+          </li>
+          <li class="toctree-l1"><a class="reference internal" href="contributing_add_router.html">Adding a new API
+              router</a></li>
+        </ul>
+
+        <div class="relations">
+          <h3>Related Topics</h3>
+          <ul>
+            <li><a href="index.html">Documentation overview</a>
+              <ul>
+                <li><a href="api_overview.html">API overview</a>
+                  <ul>
+                    <li>Previous: <a href="api/videos.html" title="previous chapter">Videos API</a></li>
+                    <li>Next: <a href="contributing_add_router.html" title="next chapter">Adding a new API router</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div id="searchbox" style="display: none" role="search">
+          <h3 id="searchlabel">Quick search</h3>
+          <div class="searchformwrapper">
+            <form class="search" action="search.html" method="get">
+              <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off"
+                autocapitalize="off" spellcheck="false" />
+              <input type="submit" value="Go" />
+            </form>
+          </div>
+        </div>
+        <script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+    <div class="clearer"></div>
+  </div>
+  <div class="footer">
+    &copy;2026, Endijs Kirsteins, Rachit Ravelia, Raf Sikkema, Kamil Lega, Kees Klijs, Louie Dans, Jack Wade, Tiago
+    Alberto Silva.
+
+    |
+    Powered by <a href="http://sphinx-doc.org/">Sphinx 7.0.1</a>
+    &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+
+    |
+    <a href="_sources/api_reference.rst.txt" rel="nofollow">Page source</a>
+  </div>
+
+
+
+
+</body>
+
+</html>
