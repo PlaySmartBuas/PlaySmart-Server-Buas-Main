@@ -1,2 +1,57 @@
 # PlaySmart-Server
-About PlaySmart is a modular toolkit designed for data professionals to analyze game design elements, performance metrics, and team dynamics. The toolkit consists of both hardware (eye-trackers, regular and heat cameras, physiological sensors) and software (Python packages, applications) to enable modular and repeatable game analysis.
+PlaySmart is a modular toolkit designed for data professionals to analyze game design elements, performance metrics, and team dynamics. The toolkit consists of both hardware (eye-trackers, regular and heat cameras, physiological sensors) and software (Python packages, applications) to enable modular and repeatable game analysis.
+
+
+# Contributing to PlaySmart
+
+Thank you for your interest in contributing to PlaySmart!
+
+PlaySmart is an open, research-driven project aimed at improving performance, well-being, and teamwork in esports through accessible AI and data-driven tools. We welcome contributions from developers, researchers, SMEs, and practitioners.
+
+## Our Philosophy
+
+PlaySmart is built on the principle of **open collaboration**. While the project is released under the Apache License 2.0 to enable broad adoption (including commercial use), we strongly encourage all users to contribute improvements back to the project.
+
+By sharing enhancements, we ensure that:
+- The toolkit remains accessible and up-to-date
+- Knowledge is shared across the ecosystem
+- SMEs and grassroots organisations benefit from continuous innovation
+
+## What You Can Contribute
+
+We welcome contributions such as:
+- Bug fixes
+- New features or improvements
+- Documentation updates
+- Performance optimisations
+- New use cases or applications
+- Research insights and validation results
+
+## Contribution Guidelines
+
+1. **Fork the repository**
+2. Create a new branch for your contribution
+3. Clearly document your changes
+4. Submit a pull request with:
+   - A clear description of what was changed
+   - The motivation behind the change
+   - Any relevant context (e.g. use case, experiment, deployment)
+
+## Documentation of Changes
+
+In line with the Apache License 2.0, any modified files must clearly indicate that changes were made. Please ensure your contributions are transparent and well-documented.
+
+## Code of Conduct
+
+We aim to create an open, respectful, and collaborative environment. Contributions should be constructive and aligned with the goals of the project.
+
+## Questions or Ideas?
+
+Feel free to open an issue to:
+- Ask questions
+- Propose new features
+- Share ideas or use cases
+
+---
+
+**Together, we build a healthier, smarter esports ecosystem.**
