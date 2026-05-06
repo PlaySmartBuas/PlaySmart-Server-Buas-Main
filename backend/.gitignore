@@ -1,0 +1,4 @@
+venv
+bget.db
+.env
+.env.production
