@@ -10,7 +10,7 @@ on:
         type: choice
         options:
           - all
-          - electron-app
+          - frontend
           - backend
           - pipeline
           - inference
@@ -18,9 +18,20 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: ${{ github.event.inputs.service == 'all' && fromJson('["backend","pipeline","inference","frontend"]') || fromJson(format('["{0}"]', github.event.inputs.service)) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Map service to folder
+        id: ctx
+        run: |
+          case "${{ matrix.service }}" in
+            frontend) echo "path=electron-app" >> $GITHUB_OUTPUT ;;
+            *) echo "path=${{ matrix.service }}" >> $GITHUB_OUTPUT ;;
+          esac
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
