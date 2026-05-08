@@ -46,20 +46,20 @@ jobs:
           push: true
           tags: playsmartbuas/bg-app-${{ matrix.service }}:latest
 
-  # deploy:
-  #   runs-on: self-hosted
-  #   needs: build-and-push        # only runs if build-and-push succeeds
-  #   steps:
-  #     - name: Pull and restart
-  #       run: |
-  #         cd /path/to/compose
+  deploy:
+    runs-on: self-hosted
+    needs: build-and-push
+    steps:
+      - name: Pull and restart
+        run: |
+          cd /home/kowalski/app
 
-  #         if [ "${{ github.event.inputs.service }}" = "all" ]; then
-  #           docker compose pull
-  #           docker compose up -d
-  #         else
-  #           docker compose pull ${{ github.event.inputs.service }}
-  #           docker compose up -d ${{ github.event.inputs.service }}
-  #         fi
+          if [ "${{ github.event.inputs.service }}" = "all" ]; then
+            docker compose pull
+            docker compose up -d
+          else
+            docker compose pull bg-app-${{ github.event.inputs.service }}
+            docker compose up -d bg-app-${{ github.event.inputs.service }}
+          fi
 
-  #         docker compose ps
+          docker compose ps
