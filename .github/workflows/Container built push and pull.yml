@@ -58,8 +58,8 @@ jobs:
             docker compose pull
             docker compose up -d
           else
-            docker compose pull bg-app-${{ github.event.inputs.service }}
-            docker compose up -d bg-app-${{ github.event.inputs.service }}
+            docker compose pull ${{ github.event.inputs.service }}
+            docker compose up -d ${{ github.event.inputs.service }}
           fi
 
-          docker compose ps
+          docker compose ps 
