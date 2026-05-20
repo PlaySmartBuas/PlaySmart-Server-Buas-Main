@@ -52,6 +52,7 @@ jobs:
       - name: Pull and restart
         run: |
           cd /home/kowalski/app
+
           if [ "${{ github.event.inputs.service }}" = "all" ]; then
             docker compose pull
             docker compose up -d
@@ -59,4 +60,5 @@ jobs:
             docker compose pull ${{ github.event.inputs.service }}
             docker compose up -d ${{ github.event.inputs.service }}
           fi
+
           docker compose ps 
