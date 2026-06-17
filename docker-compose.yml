@@ -31,28 +31,21 @@ services:
       /usr/sbin/sshd -D"
 
 
-#       PS C:\WINDOWS\system32> New-NetFirewallRule -DisplayName "SFTP Docker" -Direction Inbound -Protocol TCP -LocalPort 2422 -Action Allow
+#    Connection-specific DNS Suffix  . :
+#    Link-local IPv6 Address . . . . . : fe80::1780:1e01:9e77:b50b%11
+#    IPv4 Address. . . . . . . . . . . : 192.168.0.101
+#    Subnet Mask . . . . . . . . . . . : 255.255.255.0
+#    Default Gateway . . . . . . . . . : 192.168.0.1
 
+# Ethernet adapter Bluetooth Network Connection:
 
-# Name                          : {63dc8782-76ee-411a-87ce-81d3ef2de6ae}
-# DisplayName                   : SFTP Docker
-# Description                   :
-# DisplayGroup                  :
-# Group                         :
-# Enabled                       : True
-# Profile                       : Any
-# Platform                      : {}
-# Direction                     : Inbound
-# Action                        : Allow
-# EdgeTraversalPolicy           : Block
-# LooseSourceMapping            : False
-# LocalOnlyMapping              : False
-# Owner                         :
-# PrimaryStatus                 : OK
-# Status                        : The rule was parsed successfully from the store. (65536)
-# EnforcementStatus             : NotApplicable
-# PolicyStoreSource             : PersistentStore
-# PolicyStoreSourceType         : Local
-# RemoteDynamicKeywordAddresses : {}
-# PolicyAppId                   :
-# PackageFamilyName             :
+#    Media State . . . . . . . . . . . : Media disconnected
+#    Connection-specific DNS Suffix  . :
+
+# Ethernet adapter vEthernet (WSL (Hyper-V firewall)):
+
+#    Connection-specific DNS Suffix  . :
+#    Link-local IPv6 Address . . . . . : fe80::42f:1ba2:b18e:d675%34
+#    IPv4 Address. . . . . . . . . . . : 192.168.16.1
+#    Subnet Mask . . . . . . . . . . . : 255.255.240.0
+#    Default Gateway . . . . . . . . . :
