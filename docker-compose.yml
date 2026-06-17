@@ -3,10 +3,10 @@ services:
     image: playsmartbuas/bg-app-pipeline
     container_name: app-pipeline
     volumes:
-      - C:/esports:/mnt/raid0/esports
+      - C:/Users/breda/Documents/esports:/mnt/raid0/esports
     environment:
       - TZ=Europe/Amsterdam
-    restart: "no"
+    restart: unless-stopped
 
   sftp:
     image: atmoz/sftp
@@ -29,3 +29,30 @@ services:
       chown -R 1234:100 /home/localhost/data &&
       chmod -R 775 /home/localhost/data &&
       /usr/sbin/sshd -D"
+
+
+#       PS C:\WINDOWS\system32> New-NetFirewallRule -DisplayName "SFTP Docker" -Direction Inbound -Protocol TCP -LocalPort 2422 -Action Allow
+
+
+# Name                          : {63dc8782-76ee-411a-87ce-81d3ef2de6ae}
+# DisplayName                   : SFTP Docker
+# Description                   :
+# DisplayGroup                  :
+# Group                         :
+# Enabled                       : True
+# Profile                       : Any
+# Platform                      : {}
+# Direction                     : Inbound
+# Action                        : Allow
+# EdgeTraversalPolicy           : Block
+# LooseSourceMapping            : False
+# LocalOnlyMapping              : False
+# Owner                         :
+# PrimaryStatus                 : OK
+# Status                        : The rule was parsed successfully from the store. (65536)
+# EnforcementStatus             : NotApplicable
+# PolicyStoreSource             : PersistentStore
+# PolicyStoreSourceType         : Local
+# RemoteDynamicKeywordAddresses : {}
+# PolicyAppId                   :
+# PackageFamilyName             :
