@@ -30,22 +30,3 @@ services:
       chmod -R 775 /home/localhost/data &&
       /usr/sbin/sshd -D"
 
-
-#    Connection-specific DNS Suffix  . :
-#    Link-local IPv6 Address . . . . . : fe80::1780:1e01:9e77:b50b%11
-#    IPv4 Address. . . . . . . . . . . : 192.168.0.101
-#    Subnet Mask . . . . . . . . . . . : 255.255.255.0
-#    Default Gateway . . . . . . . . . : 192.168.0.1
-
-# Ethernet adapter Bluetooth Network Connection:
-
-#    Media State . . . . . . . . . . . : Media disconnected
-#    Connection-specific DNS Suffix  . :
-
-# Ethernet adapter vEthernet (WSL (Hyper-V firewall)):
-
-#    Connection-specific DNS Suffix  . :
-#    Link-local IPv6 Address . . . . . : fe80::42f:1ba2:b18e:d675%34
-#    IPv4 Address. . . . . . . . . . . : 192.168.16.1
-#    Subnet Mask . . . . . . . . . . . : 255.255.240.0
-#    Default Gateway . . . . . . . . . :
