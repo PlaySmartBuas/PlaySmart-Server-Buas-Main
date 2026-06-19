@@ -14,7 +14,7 @@ services:
     ports:
       - "2422:22"
     volumes:
-      - C:/esports/sftp_data:/home/localhost/data
+      - C:/Users/breda/Documents/esports/sftp_data:/home/localhost/data
     environment:
       - SFTP_USERS=localhost:yourpassword:1234
     restart: unless-stopped

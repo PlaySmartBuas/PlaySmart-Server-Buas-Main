@@ -1,8 +1,7 @@
-mkdir C:\esports\sftp_data\emotion
-mkdir C:\esports\sftp_data\video
-mkdir C:\esports\sftp_data\input
-mkdir C:\esports\sftp_data\merged
-mkdir C:\esports\sftp_data\gaze
-mkdir C:\esports\sftp_data\eda
-mkdir C:\esports\sftp_data\audio
-docker compose up -d
+mkdir C:\Users\breda\Documents\GitHub\emotion
+mkdir C:\Users\breda\Documents\GitHub\video
+mkdir C:\Users\breda\Documents\GitHub\input
+mkdir C:\Users\breda\Documents\GitHub\merged
+mkdir C:\Users\breda\Documents\GitHub\gaze
+mkdir C:\Users\breda\Documents\GitHub\eda
+mkdir C:\Users\breda\Documents\GitHub\audio
