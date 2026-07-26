@@ -12,6 +12,7 @@ Responsibilities:
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
+from prometheus_fastapi_instrumentator import Instrumentator
 
 from app.database import engine, Base
 from app.router import (
@@ -65,6 +66,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+Instrumentator().instrument(app).expose(app)
 
 
 # ---------- Router Registration ----------

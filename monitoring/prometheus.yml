@@ -1,0 +1,22 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # backend container - reachable by its compose service name on the shared network
+  - job_name: 'app-backend'
+    static_configs:
+      - targets: ['backend:8000']
+
+  # inference container - orchestrates the pipeline -> GPU PC handoff
+  - job_name: 'app-inference'
+    static_configs:
+      - targets: ['inference:8001']
+
+  # Spark GPU PC - separate machine, reached by its LAN IP
+  - job_name: 'spark-inference'
+    static_configs:
+      - targets: ['10.4.28.236:8000']

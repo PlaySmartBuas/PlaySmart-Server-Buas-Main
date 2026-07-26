@@ -7,7 +7,8 @@ services:
     volumes:
       - ./backend/bget.db:/app/bget.db
       - ./backend/logs:/app/logs
-      - /mnt/raid0/esports:/mnt/raid0/esports
+      # TODO: revert to Linux path before deploying
+      - C:/Users/mboez/Documents/esports:/mnt/raid0/esports
     environment:
       - SECRET_KEY=ab0fcea65b768d7f7c958313ed0dd95f8c579d251266183e091069d16702a7d0
       - ALGORITHM=HS256
@@ -32,7 +33,8 @@ services:
     image: playsmartbuas/bg-app-pipeline
     container_name: app-pipeline
     volumes:
-      - /mnt/raid0/esports:/mnt/raid0/esports
+    # TODO: revert to Linux path before deploying
+      - C:/Users/mboez/Documents/esports:/mnt/raid0/esports
     environment:
       - TZ=Europe/Amsterdam
     restart: unless-stopped
@@ -43,7 +45,8 @@ services:
     ports:
       - "8001:8001"
     volumes:
-      - /mnt/raid0/esports:/mnt/raid0/esports
+    # TODO: revert to Linux path before deploying
+      - C:/Users/mboez/Documents/esports:/mnt/raid0/esports
     environment:
       - TZ=Europe/Amsterdam
       - GPU_PC_URL=http://10.4.28.236:8000
@@ -58,7 +61,8 @@ services:
     ports:
       - "2422:22"
     volumes:
-      - /mnt/raid0/esports/sftp_data:/home/localhost/data
+    # TODO: revert to Linux path before deploying
+      - C:/Users/mboez/Documents/esports/sftp_data:/home/localhost/data
     environment:
       - SFTP_USERS=localhost:yourpassword:1234
     restart: unless-stopped
@@ -73,3 +77,39 @@ services:
       chown -R 1234:100 /home/localhost/data &&
       chmod -R 775 /home/localhost/data &&
       /usr/sbin/sshd -D"
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: app-prometheus
+    restart: unless-stopped
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time=30d"
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: app-grafana
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+    volumes:
+      - grafana_data:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=1337   # change before first boot
+      - GF_USERS_ALLOW_SIGN_UP=false
+
+# Add this at the bottom of the file, alongside your existing "services:" block,
+# NOT nested inside it:
+#
+volumes:
+  prometheus_data:
+  grafana_data:
