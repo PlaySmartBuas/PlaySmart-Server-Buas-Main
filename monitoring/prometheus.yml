@@ -19,4 +19,8 @@ scrape_configs:
   # Spark GPU PC - separate machine, reached by its LAN IP
   - job_name: 'spark-inference'
     static_configs:
-      - targets: ['10.4.28.236:8000']
+      - targets: ['192.168.178.46:8000']
+
+  - job_name: 'sparktest-vm'
+    static_configs:
+      - targets: ['192.168.178.40:8000']

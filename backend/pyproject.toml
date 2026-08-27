@@ -37,7 +37,7 @@ paramiko = "^3.5.0"
 moviepy = "^2.1.1"
 mss = "^10.0.0"
 ultralytics = "^8.3.77"
-prometheus-fastapi-instrumentator = "^7.0.0"
+prometheus-fastapi-instrumentator = "^6.1.0"
 
 # ---- Added From Backend Requirements ----
 fastapi = "0.104.1"

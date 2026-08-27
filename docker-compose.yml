@@ -1,5 +1,6 @@
 services:
   backend:
+    build: ./backend
     image: playsmartbuas/bg-app-backend
     container_name: app-backend
     ports:
